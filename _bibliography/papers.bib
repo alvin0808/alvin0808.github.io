@@ -3,6 +3,49 @@
 
 @string{aps = {American Physical Society,}}
 
+@article{song2025cns_dataset,
+  title={The City that Never Settles: Simulation-based LiDAR Dataset for Long-Term Place Recognition Under Extreme Structural Changes},
+  author={Song*, Hyunho and Lee, Dongjae and Oh, Seunghun and Jung, Minwoo and Kim, Ayoung},
+  journal={ICRA 2025 Workshop on Robust Perception in Changing Environments},
+  year={2025},
+  note={Best Paper Award},
+  code={https://github.com/Hyunho111/CNS_dataset},
+  html={https://arxiv.org/abs/2505.05076},
+  preview={icra_ws.png},
+  abstract={Large-scale construction and demolition significantly challenge long-term place recognition (PR) by drastically reshaping urban and suburban environments. Existing datasets predominantly reflect limited or indoor-focused changes, failing to adequately represent extensive outdoor transformations. To bridge this gap, we introduce the City that Never Settles (CNS) dataset, a simulation-based dataset created using the CARLA simulator, capturing major structural changes-such as building construction and demolition-across diverse maps and sequences. Additionally, we propose TCR_sym, a symmetric version of the original TCR metric, enabling consistent measurement of structural changes irrespective of source-target ordering. Quantitative comparisons demonstrate that CNS encompasses more extensive transformations than current real-world benchmarks. Evaluations of state-of-the-art LiDAR-based PR methods on CNS reveal substantial performance degradation, underscoring the need for robust algorithms capable of handling significant environmental changes.},
+}
+
+@article{oh2025lidar_6dof,
+  title={LiDAR Data Processing Algorithm for Robust 6-DoF Estimation Using Circular Patterns},
+  author={Oh*, Seunghun and Kim*, Yechan and Song, Chaehyeon and Kim, Ayoung},
+  journal={The Journal of Korea Robotics Society(KROS)},
+  volume={20},
+  number={2},
+  pages={322--330},
+  year={2025},
+  publisher={Korea Robotics Society},
+  preview={kros.png},
+  code={https://github.com/chaehyeonsong/discocal},
+  html={https://koreascience.kr/article/JAKO202516432402590.pub?orgId=krob},
+  abstract={Accurate LiDAR (Light Detection and Ranging) data processing is essential for precise sensor calibration and reliable 3D perception in applications such as autonomous driving and robotics. Traditional methods often rely on artificial targets like circular patterns for 6-DoF estimation due to their ability to precisely detect geometric features. However, few studies focus on improving the accuracy of raw LiDAR data through preprocessing, leaving unresolved issues related to LiDAR's inherent limitations. To address these challenges, we propose a novel LiDAR data processing algorithm that improves robustness and 6-DoF estimation accuracy. It enhances target plane detection accuracy by using perspective projection, accounting for LiDAR's range direction errors. We also resolve data bias from scanning patterns using CDR (Centroid Distance Ratio) and directional variance, allowing for the extraction of reliable boundary points. Experimental results demonstrate significantly lower RMSE compared to existing techniques, highlighting the enhanced precision and robustness of our approach. Furthermore, our method achieves higher accuracy in 6-DoF estimation compared to traditional methods.},
+  selected={true}
+}
+
+@inproceedings{hahn2024map_accuracy_eval,
+  title={Quantitative 3D Map Accuracy Evaluation Hardware and Algorithm for LiDAR (-Inertial) SLAM},
+  author={Hahn*, Sanghyun and Oh*, Seunghun and Jung, Minwoo and Kim, Ayoung and Jung, Sangwoo},
+  booktitle={2024 24th International Conference on Control, Automation and Systems (ICCAS)},
+  pages={568--572},
+  year={2024},
+  publisher={IEEE},
+  preview={iccas.png},
+  code={https://github.com/SangwooJung98/3D_Map_Evaluation},
+  html={https://arxiv.org/abs/2408.09727},
+  abstract={Accuracy evaluation of a 3D pointcloud map is crucial for the development of autonomous driving systems. In this work, we propose a user-independent software/hardware system that can quantitatively evaluate the accuracy of a 3D pointcloud map acquired from LiDAR(-Inertial) SLAM. We introduce a LiDAR target that functions robustly in the outdoor environment, while remaining observable by LiDAR. We also propose a software algorithm that automatically extracts representative points and calculates the accuracy of the 3D pointcloud map by leveraging GPS position data. This methodology overcomes the limitations of the manual selection method, that its result varies between users. Furthermore, two different error metrics, relative and absolute errors, are introduced to analyze the accuracy from different perspectives.},
+  selected={true}
+}
+
+@comment{
 @book{einstein1920relativity,
   title={Relativity: the Special and General Theory},
   author={Einstein, Albert},
@@ -36,7 +79,7 @@
 @article{PhysRev.47.777,
   abbr={PhysRev},
   title={Can Quantum-Mechanical Description of Physical Reality Be Considered Complete?},
-  author={Einstein*†, A. and Podolsky*, B. and Rosen*, N.},
+  author={Einstein*???, A. and Podolsky*, B. and Rosen*, N.},
   abstract={In a complete theory there is an element corresponding to each element of reality. A sufficient condition for the reality of a physical quantity is the possibility of predicting it with certainty, without disturbing the system. In quantum mechanics in the case of two physical quantities described by non-commuting operators, the knowledge of one precludes the knowledge of the other. Then either (1) the description of reality given by the wave function in quantum mechanics is not complete or (2) these two quantities cannot have simultaneous reality. Consideration of the problem of making predictions concerning a system on the basis of measurements made on another system that had previously interacted with it leads to the result that if (1) is false then (2) is also false. One is thus led to conclude that the description of reality as given by a wave function is not complete.},
   journal={Phys. Rev.},
   location={New Jersey},
@@ -56,7 +99,7 @@
   google_scholar_id={qyhmnyLat1gC},
   video={https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ},
   additional_info={. *More Information* can be [found here](https://github.com/alshedivat/al-folio/)},
-  annotation={* Example use of superscripts<br>† Albert Einstein},
+  annotation={* Example use of superscripts<br>??? Albert Einstein},
   selected={true},
   inspirehep_id = {3255}
 }
@@ -112,4 +155,5 @@
   publisher={Vision},
   preview={wave-mechanics.gif},
   abbr={Vision}
+}
 }
