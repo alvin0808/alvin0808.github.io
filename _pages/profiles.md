@@ -13,8 +13,7 @@ profiles:
     image: my_picture.jpg
     content: about_einstein.md
     image_circular: false # crops the image to make it circular
-    more_info: 
-      <p>Seoul, Republic of Korea</p>
+    more_info: <p>Seoul, Republic of Korea</p>
       <p>alvin0808 at snu.ac.kr</p>
   - align: left
     image: pic.jpg
