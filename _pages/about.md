@@ -26,7 +26,6 @@ latest_posts:
 ---
 
 I am a senior undergraduate at **Seoul National University**, double majoring in Mechanical Engineering and Computer Science.
-My research focuses on **robotics perception**, particularly in SLAM and 3D scene reconstruction through **multi-sensor fusion**.
-I am driven by the challenge of enabling robots to perceive, understand, and navigate complex real-world environments as naturally as humans do.
+where my research has focused on **localization, mapping (SLAM), 3D reconstruction and multi-sensor integration**. Through these projects, I have built a strong foundation in **robot perception**, leveraging LiDAR, cameras, and inertial sensors to model and reconstruct complex environments.
 
-My long-term vision is to design the **"eyes" of future robots**-bridging perception research and real-world robotic deployment-ultimately contributing to autonomous systems that are both intelligent and trustworthy.
+My long-term vision is to develop **autonomous robotic systems** that perceive, localize, and interact with their surroundings to make decisions and operate reliably in dynamic environments.
