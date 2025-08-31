@@ -1,81 +1,205 @@
 ---
 layout: page
-title: project 3 with very long name
-description: a project that redirects to another website
-img: assets/img/7.jpg
-redirect: https://unsplash.com
-importance: 3
+title: LiDAR-Camera Calibration with Circular Pattern
+description: Implemented a 6-DoF circular pattern extraction algorithm for LiDAR, integrated with a camera module for precise calibration.
+img: assets/img/LiDAR_1.jpg
+importance: 1
 category: work
+related_publications: False
 ---
 
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
+This project contains two sections: (1) **instructions and code for running the LiDAR?Camera calibration**, and (2) an **English summary of the theoretical background** from my Korean-language paper. The emphasis is on implementation, with the theory included for reference. For details, see the [paper](https://koreascience.kr/article/JAKO202516432402590.page).
 
-To give your project a background in the portfolio page, just add the img tag to the front matter like so:
+---
 
-    ---
-    layout: page
-    title: project
-    description: a project with a background image
-    img: /assets/img/12.jpg
-    ---
+## How to Run
 
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/3.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
-</div>
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    This image can also have a caption. It's like magic.
-</div>
+Running code available in "[GitHub repository](https://github.com/chaehyeonsong/discocal)".
 
-You can also put regular text between your rows of images.
-Say you wanted to write a little bit about your project before you posted the rest of the images.
-You describe how you toiled, sweated, _bled_ for your project, and then... you reveal its glory in the next row of images.
+---
 
-<div class="row justify-content-sm-center">
-    <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
-</div>
+### 0. Calibration Requirements
 
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
+A single **calibration board with circular patterns** is required, and it must satisfy the following two conditions:
 
-{% raw %}
+1. **Punched-through Circles**  
+   The circles must be **physically punched through** so that the LiDAR can capture a point cloud with visible circular holes.  
+   To enhance contrast in RGB images, place a **black plate behind the board** so the holes appear dark in the image.
 
-```html
-<div class="row justify-content-sm-center">
-  <div class="col-sm-8 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-  <div class="col-sm-4 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+2. **Minimum Circle Spacing**  
+   The **distance between adjacent circle centers** is recommended to be **greater than three times the circle radius** to ensure robust detection and minimize clustering ambiguity.
+
+---
+
+### 1. Data Collection
+
+Prepare **multiple pairs** of:
+
+- RGB **images**: `.png` format
+- LiDAR **point clouds**: `.pcd` format (**required**)
+
+Capture the board from a variety of positions and angles to maximize calibration robustness.  
+DiscoCal is designed to work reliably even when the board appears at arbitrary poses.
+
+<div class="row justify-content-center">
+  <div class="col-sm-6 mt-3 mt-md-0 text-center">
+    {% include figure.liquid path="/assets/img/LiDAR_RGB_sample.png" title="LiDAR_RGB_sample.png" class="img-fluid rounded z-depth-1" %}
   </div>
 </div>
+
+---
+
+### 2. Modify the config file
+
+- [`lidar.yaml`](../codes/lidar.yaml) : This is a config template of LiDAR-camera calibration. You can adjust some parameters for more reliable data processing.
+
+---
+
+### 3. Run
+
+This section illustrates how to manually build and run the Docker container for LiDAR calibration.  
+For a simpler setup using Docker Compose, refer to the [Quick Installation Guide](https://github.com/chaehyeonsong/discocal).
+
+1. Build with Docker
+
+```bash
+git clone https://github.com/chaehyeonsong/discocal.git
+cd discocal
+docker build -t discocal-lidar .
 ```
 
-{% endraw %}
+After build, runfiles will be created in discocal folder
+
+2. Run the Container (with GUI support)
+
+To allow Docker containers to access your X server, run this in your terminal on the host machine (not inside Docker):
+
+```bash
+xhost +local:root
+```
+
+After, run Docker with X11 forwarding enabled, This command starts the container with GUI access:
+
+```bash
+sudo docker run -it --rm \
+    -e DISPLAY=$DISPLAY \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v "$(pwd)":/app \
+    -w /app \
+    discocal-lidar
+```
+
+Inside the Docker container, build and run the program:
+
+```bash
+mkdir build
+cd build
+cmake ..
+make
+LIBGL_ALWAYS_SOFTWARE=1 ./lidar.out
+```
+
+---
+
+## Theoretical Background
+
+This section provides an overview of the [LiDAR data processing approach](https://koreascience.kr/article/JAKO202516432402590.page) and its integration with the [camera module](https://arxiv.org/abs/2403.04583) to achieve precise calibration.
+
+The process can be divided into four main stages:
+
+---
+
+### 1. Board Detection
+
+To localize the calibration board in the LiDAR point cloud, we apply a combination of segmentation and geometric constraints:
+
+- **plane segmentation**:
+  A RANSAC-based plane fitting is applied to extract the dominant planar surface. Among the candidate planes, we select the most planar and appropriately sized one using PCA analysis and some proper filterings.
+- **perspective projection**:
+  The points on the detected board are perspectively projected onto the fitted plane. Perspective projection can **remove range error**, thus
+  **accurate circular patterns can be obtained**.
+
+<div class="row justify-content-center">
+  <div class="col-sm-6 mt-3 mt-md-0 text-center">
+    {% include figure.liquid path="/assets/img/perspective_projection.png" title="perspective_projection.png" class="img-fluid rounded z-depth-1" %}
+  </div>
+</div>
+---
+
+### 2. Circle Detection
+
+We introduce a robust filtering-based detection approach that does **not rely on the ring channel**, enabling wider LiDAR compatibility:
+
+- **Centroid Distance Ratio(CDR)**:
+Given a point p and its neighbors p_i, the Centroid Distance Ratio is defined as:
+<div class="row justify-content-center">
+  <div class="col-sm-6 mt-3 mt-md-0 text-center">
+    {% include figure.liquid path="/assets/img/CDR.png" title="CDR.png" class="img-fluid rounded z-depth-1" %}
+  </div>
+</div>
+- **Directional Variance**:
+Using the same notation, the directional variance of normalized neighbor vectors is computed as:
+<div class="row justify-content-center">
+  <div class="col-sm-6 mt-3 mt-md-0 text-center">
+    {% include figure.liquid path="/assets/img/DV.png" title="DV.png" class="img-fluid rounded z-depth-1" %}
+  </div>
+</div>
+
+Points that satisfy these conditions are extracted as boundary points.
+
+---
+
+### 3. Center Detection
+
+After boundary extraction and projection, circle centers are estimated through:
+
+- **Clustering**:
+  Boundary points are spatially grouped into clusters, each representing one circle.
+- **Circle Fitting**:
+For each cluster, the `ransacCircleFit()` function selects the best inlier set, which is then refined using a least-squares 2D fitting (`circleFitConstrained2D()`).
+The center of each circle is computed by solving the following linear system:
+<div class="row justify-content-center">
+  <div class="col-sm-6 mt-3 mt-md-0 text-center">
+    {% include figure.liquid path="/assets/img/circle_center_estimate.png" title="Circle Center Estimate" class="img-fluid rounded z-depth-1 " %}
+  </div>
+</div>
+
+---
+
+### 4. 6-DoF Estimation
+
+Using the sorted 3D circle centers and the known board layout, we estimate the 6-DoF pose of the calibration board with respect to the LiDAR frame as follows:
+
+- **2D rigid transformation** (rotation + translation) is optimized to align the detected circle centers with the board layout in 2D space.
+
+- This alignment is formulated as a least-squares problem and solved using **Ceres Solver** to obtain the optimal rotation and translation.
+
+- The resulting 2D transform is lifted to 3D using the known board plane, and combined with the plane-to-LiDAR transform to compute the final **6-DoF pose** of the board in the LiDAR frame.
+<div class="row justify-content-center">
+  <div class="col-sm-8 mt-3 mt-md-0 text-center">
+    {% include figure.liquid path="/assets/img/6_DoF.png" title="6_DoF.png" class="img-fluid rounded z-depth-1" %}
+  </div>
+</div>
+
+---
+
+### 5. Integration with Camera
+
+The estimated 6-DoF poses of the calibration board with respect to both the LiDAR frame and the camera frame are represented as 4x4 transformation matrices. By inverting one matrix and multiplying it with the other, the relative 6-DoF transformation between the LiDAR and camera can be obtained. These results are then expressed in se(3) form for each input, and the final calibration result is derived by averaging across all inputs.
+
+An example output is shown below:
+
+**[LiDAR to Camera se(3)]**
+
+```
+1.241637 -1.202437 1.185587 0.175148 -0.202357 -0.004036
+```
+
+**[LiDAR to Camera SE(3)]**
+
+```
+ 0.0254972  -0.999652    0.00671372  0.175148
+-0.020819   -0.00724544 -0.999757   -0.202357
+ 0.999458    0.0253513  -0.0209965  -0.00403624
+ 0           0           0           1
+```
