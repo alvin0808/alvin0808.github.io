@@ -51,7 +51,7 @@ DiscoCal is designed to work reliably even when the board appears at arbitrary p
 
 ### 2. Modify the config file
 
-- [`lidar.yaml`](../codes/lidar.yaml) : This is a config template of LiDAR-camera calibration. You can adjust some parameters for more reliable data processing.
+- `lidar.yaml` : This is a config template of LiDAR-camera calibration. You can adjust some parameters for more reliable data processing.
 
 ---
 
