@@ -170,6 +170,8 @@ kramdown:
     block:
       line_numbers: false
       start_line: 1
+    math_engine: mathjax
+mathjax: true
 
 # Includes & excludes
 include: ["_pages", "_scripts"]

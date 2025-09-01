@@ -3,7 +3,7 @@ layout: page
 title: "Automated Filming Device"
 description: An automated filming device with face-traking and remote control for one-person media creators.
 img: assets/img/device.png
-importance: 2
+importance: 3
 category: work
 related_publications: false
 ---
@@ -77,7 +77,7 @@ A portable and user-friendly filming device that enables **solo creators** to re
   - LIRC (Linux Infrared Remote Control) processes IR signals  
   - NEC IR protocol used for reliable key input
 
-Code available in "[GitHub repository](https://alvin0808.github.io/)".
+Code available in "[GitHub repository](https://github.com/yongyong3393/face_tracker)".
 
 ---
 

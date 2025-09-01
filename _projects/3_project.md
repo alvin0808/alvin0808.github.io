@@ -3,7 +3,7 @@ layout: page
 title: LiDAR-Camera Calibration with Circular Pattern
 description: Implemented a 6-DoF circular pattern extraction algorithm for LiDAR, integrated with a camera module for precise calibration.
 img: assets/img/LiDAR_1.jpg
-importance: 1
+importance: 2
 category: work
 related_publications: False
 ---
