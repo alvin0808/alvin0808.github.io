@@ -424,6 +424,11 @@ ninja.data = [{
           description: "Implemented a 6-DoF circular pattern extraction algorithm for LiDAR, integrated with a camera module for precise calibration.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/3_project/";
+            },},{id: "projects-sparse-voxels-rasterization-with-sdf-based-learning",
+          title: 'Sparse Voxels Rasterization with SDF-based Learning',
+          description: "SVRaster Geometry Refinement via SDF Learning and NeuS-style Volume Rendering",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/4_project/";
             },},{
         id: 'social-email',
         title: 'email',
