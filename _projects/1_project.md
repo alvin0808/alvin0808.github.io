@@ -17,6 +17,12 @@ A portable and user-friendly filming device that enables **solo creators** to re
 
 ---
 
+### Awards
+
+- **Grand Prize (1st Place), HD Hyundai Mechatronics Competition** ? Prize: **KRW 3,000,000**
+
+---
+
 ### Background: Rise of One-Person Media
 
 - Growing demand for content creation without professional filming crews.
