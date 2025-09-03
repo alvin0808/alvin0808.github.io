@@ -1,81 +1,55 @@
 ---
 layout: page
-title: project 5
-description: a project with a background image
-img: assets/img/1.jpg
+title: Bulnabi Software Club
+description: Hands-on activities in drone and robotics software
+img: assets/img/bulnabi.jpg
 importance: 3
 category: fun
-published: false
+published: true
 ---
 
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
+## Bulnabi Robotics Club
 
-To give your project a background in the portfolio page, just add the img tag to the front matter like so:
+**Seoul National University (2024)**
 
-    ---
-    layout: page
-    title: project
-    description: a project with a background image
-    img: /assets/img/12.jpg
-    ---
+I joined **Bulnabi**, a student club focusing on **drone and robotics software**.  
+Through the club, I systematically studied the software stack required for drones and robots, from basic Linux usage to full simulation with PX4 and ROS2.
 
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/3.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
-</div>
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    This image can also have a caption. It's like magic.
-</div>
+---
 
-You can also put regular text between your rows of images.
-Say you wanted to write a little bit about your project before you posted the rest of the images.
-You describe how you toiled, sweated, _bled_ for your project, and then... you reveal its glory in the next row of images.
+### What I Learned
 
-<div class="row justify-content-sm-center">
-    <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
-</div>
+- **Linux/WSL and Development Environment**
 
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
+  - Installed and configured Ubuntu 20.04 on WSL
+  - Practiced CLI commands, package management, and environment setup
+  - Built a foundation for running robotics software on personal machines
 
-{% raw %}
+- **Drone Software & Simulation**
 
-```html
-<div class="row justify-content-sm-center">
-  <div class="col-sm-8 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-  <div class="col-sm-4 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-</div>
-```
+  - Learned the role of **PX4-Autopilot** as a flight controller firmware and its internal modules
+  - Connected PX4 with **QGroundControl** for vehicle setup and mission planning
+  - Ran **SITL (Software-In-The-Loop) simulations** in Gazebo, experimenting with takeoff, landing, and mission mode
 
-{% endraw %}
+- **ROS2 Programming**
+  - Understood ROS2 concepts such as nodes, topics, and services:contentReference[oaicite:1]{index=1}
+  - Practiced writing simple publisher/subscriber nodes in Python
+  - Created and built ROS2 packages using colcon, tested with `turtlesim`
+  - Integrated ROS2 with PX4 through **uXRCE-DDS**, enabling offboard control via ROS2 topics
+
+---
+
+### Outcomes
+
+- Gained **practical experience across the entire robotics software stack** (Linux, PX4, Gazebo, QGroundControl, ROS2)
+- Built a strong understanding of how **flight control systems and robotics middleware communicate**
+- Applied this knowledge later in my SLAM and 3D reconstruction research
+- Also co-created and shared materials with other members, helping beginners follow the same learning path
+
+---
+
+### Seminar Materials
+
+- [Linux & Environment Setup (PDF)](https://github.com/alvin0808/bulnabi/blob/main/2024_bulnabi_software_seminar01.pdf)
+- [Drone Simulation & Control (PDF)](https://github.com/alvin0808/bulnabi/blob/main/2024_bulnabi_software_seminar02.pdf)
+- [ROS2 Programming (PDF)](https://github.com/alvin0808/bulnabi/blob/main/2024_bulnabi_software_seminar03.pdf)

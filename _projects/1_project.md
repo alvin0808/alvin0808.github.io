@@ -19,7 +19,7 @@ A portable and user-friendly filming device that enables **solo creators** to re
 
 ### Awards
 
-- **Grand Prize (1st Place), HD Hyundai Mechatronics Competition** ? Prize: **KRW 3,000,000**
+- **Grand Prize (1st Place), HD Hyundai Mechatronics Competition** (Prize: **KRW 3,000,000**)
 
 ---
 
@@ -83,7 +83,7 @@ A portable and user-friendly filming device that enables **solo creators** to re
   - LIRC (Linux Infrared Remote Control) processes IR signals  
   - NEC IR protocol used for reliable key input
 
-Code available in "[GitHub repository](https://github.com/yongyong3393/face_tracker)".
+Code available in "[GitHub repository](https://github.com/alvin0808/face-traker)".
 
 ---
 

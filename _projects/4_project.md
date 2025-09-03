@@ -2,12 +2,20 @@
 layout: page
 title: Sparse Voxels Rasterization with SDF-based Learning
 description: SVRaster Geometry Refinement via SDF Learning and NeuS-style Volume Rendering
-img: assets/img/lego_novel_ours.jpg
+img: assets/img/svraster_comparison.png
 importance: 1
 category: work
 published: true
-related_publications: true
+related_publications: false
 ---
+
+<div class="row justify-content-center">
+  <div class="col-sm mt-3 mt-md-0 text-center">
+    {% include figure.liquid loading="eager" path="/assets/img/svraster_comparison.png" 
+       title="SVRaster (left) vs. Ours (right)" 
+       class="img-fluid rounded z-depth-1" %}
+  </div>
+</div>
 
 ## 1. Motivation & Main Contribution
 
@@ -15,11 +23,12 @@ related_publications: true
 
 ### Motivation
 
-- **SVRaster** provides fast performance with morton code based sparse voxel rasterization, but suffers from limited geometry quality due to its density-based representation.
-- **NeuS** achieves high-fidelity geometry using SDF-based surface rendering, but is computationally heavy and not real-time friendly.
-- **Neuralangelo** introduced second-order derivative regularization to suppress noise and produce smoother surfaces.
+- **SVRaster** (CVPR 2025) provides fast performance with morton code based sparse voxel rasterization, but suffers from limited geometry quality due to its density-based representation.
+- **NeuS** (NeurlPS 2021) achieves high-fidelity geometry using SDF-based surface rendering, but is computationally heavy and not real-time friendly.
+- **Neuralangelo** (CVPR 2023) introduced numerical eikonal loss and second-order derivative regularization to suppress noise and produce smoother surfaces.
 
 This work integrates **SDF-based learning into the SVRaster framework** to improve geometry quality while preserving rasterization efficiency.
+Moreover, our method achieves **training time less than 10 minutes**, does not require **SfM initialization** unlike Gaussian-based approaches, and provides **balanced performance**: preserving novel view rendering quality, improving geometry fidelity, and extreme high rendering speed.
 
 ---
 
@@ -30,9 +39,9 @@ This work integrates **SDF-based learning into the SVRaster framework** to impro
 3. **Grid-Voxel mapping tables**:
    - Motivation: In order for **regularization losses (e.g., Eikonal, smoothness)** to propagate **continuously across neighboring voxels**, we discretize the scene into grids and enable **fast neighbor queries**.
    - Implemented structures:
-     - (A) Dense 3D bitmask (grid validity)
-     - (B) Compact index table (valid grid idx list)
-     - (C) Mapping table (grid idx $\rightarrow$ voxel idx, unique)
+     - Dense 3D bitmask (grid validity)
+     - Compact index table (valid grid idx list)
+     - Mapping table (grid idx $\rightarrow$ voxel idx, unique)
    - Implemented with CUDA for efficient neighbor queries.
 4. **Extended Loss Functions**:
    - **Eikonal loss** (numerical gradient norm $\approx 1$)
@@ -41,20 +50,18 @@ This work integrates **SDF-based learning into the SVRaster framework** to impro
 
 ---
 
-## 2. Theoretical Background
-
-- **NeRF**: A framework for learning implicit representations via volume rendering.
-- **SVRaster**: Fast novel view synthesis with sparse voxel rasterization and density-based representation.
-- **NeuS**: SDF-based volume rendering for more accurate geometry.
-- **Neuralangelo**: Introduced second-order derivative regularization to produce smooth and noise-free surfaces.
+## 2. Methodology
 
 ---
 
-## 3. Methodology
-
----
-
-### 3.1 SDF Learning within Sparse Voxels
+<div class="row justify-content-center">
+  <div class="col-sm mt-3 mt-md-0 text-center">
+    {% include figure.liquid loading="eager" path="/assets/img/method_overview.png" 
+       title="method overview" 
+       class="img-fluid rounded z-depth-1" %}
+  </div>
+</div>
+### 2.1 SDF Learning within Sparse Voxels
 
 We extend the SVRaster framework to support Signed Distance Functions (SDFs) as the scene representation.
 
@@ -71,7 +78,7 @@ where $\Phi_s$ is the logistic CDF and $f(\cdot)$ is the SDF.
 
 ---
 
-### 3.2 Voxel Refinement with SDF Criteria
+### 2.2 Voxel Refinement with SDF Criteria
 
 Sparse voxels are adaptively subdivided or pruned during training.
 
@@ -81,7 +88,7 @@ Sparse voxels are adaptively subdivided or pruned during training.
 
 ---
 
-### 3.3 Grid--Voxel Mapping and Neighbor Search
+### 2.3 Grid--Voxel Mapping and Neighbor Search
 
 To enable continuous propagation of regularization losses (e.g., Eikonal, smoothness, Laplacian) across space, we introduce a three-part data structure that explicitly links grid cells (fine resolution sampling points) with voxels (coarse sparse blocks). This mapping allows the system to efficiently query spatial neighbors and enforce differential constraints.
 
@@ -99,6 +106,7 @@ To enable continuous propagation of regularization losses (e.g., Eikonal, smooth
    - Querying the position of a grid index within this table requires binary search, yielding O(log M) time (where M is the number of valid grid cells).
 
 3. Voxel Index Mapping (C):
+
    - For each valid grid index in (B), we store the voxel index that owns this grid point.
    - Each grid cell belongs to exactly one voxel, guaranteeing uniqueness and avoiding conflicts.
    - Retrieval from this mapping is O(1) once the compacted index is known.
@@ -122,7 +130,7 @@ To enable continuous propagation of regularization losses (e.g., Eikonal, smooth
 
 ---
 
-### 3.4 Loss Functions
+### 2.4 Loss Functions
 
 We design two core losses, both computed **per valid grid index in parallel**, using finite differences.
 
@@ -173,34 +181,80 @@ This stochastic sampling improved stability and resulted in sharper and less noi
 
 ---
 
-## 4. Experimental Results
+## 3. Experimental Results
 
 ---
 
-### Dataset
+### 3.1 Qualitative Results
 
-- Replica, DTU, and synthetic NeRF datasets.
+#### (a) Novel View Synthesis Comparison
+
+<div class="row justify-content-center">
+  <div class="col-sm-8 mt-3 mt-md-0 text-center">
+    {% include figure.liquid loading="eager" path="/assets/img/nvs_comparison.png" 
+       title="Novel View Rendering: SVRaster (left) vs. Ours (right)" 
+       class="img-fluid rounded z-depth-1" %}
+  </div>
+</div>
+
+_Our method preserves novel view rendering quality comparable to the original SVRaster, while providing improved geometry._
+
+#### (b) Geometry Comparison with Original SVRaster
+
+<div class="row justify-content-center">
+  <div class="col-sm-8 mt-3 mt-md-0 text-center">
+    {% include figure.liquid loading="eager" path="/assets/img/geometry_comparison.png" 
+       title="Original SVRaster (density) vs. Ours (SDF)" 
+       class="img-fluid rounded z-depth-1" %}
+  </div>
+</div>
+
+_Compared to the original SVRaster, our SDF-based method captures finer structures and represents geometry with higher fidelity._
+
+#### (c) Ablation: Effect of Random Sampling for Regularization
+
+<div class="row justify-content-center">
+  <div class="col-sm-10 mt-3 mt-md-0 text-center">
+    {% include figure.liquid loading="eager" path="/assets/img/random_loss.png" 
+       title="Without vs. With Random Sampling" 
+       class="img-fluid rounded z-depth-1" %}
+  </div>
+</div>
+
+_Random sampling inside grid cells reduces noise and improves surface smoothness._
 
 ---
 
-### Baselines
+### 3.2 Quantitative Results
 
-- Original SVRaster (density-based).
-- NeuS.
+We evaluated Chamfer Distance on the DTU dataset (lower is better).  
+The table below highlights our reproduced result compared to the original SVRaster and other baselines.
 
----
+| Method                       | DTU (scan 24) Chamfer Distance |
+| ---------------------------- | ------------------------------ |
+| NeuS                         | 1.00                           |
+| 2DGS                         | 0.48                           |
+| 3DGS                         | 2.14                           |
+| SVRaster (original, density) | 0.61                           |
+| **Ours (reproduced)**        | **0.52**                       |
 
-### Metrics
-
-- **Novel view synthesis**: PSNR, SSIM.
-- **Geometry quality**: Chamfer Distance, Normal Consistency.
+- Our reimplementation achieves **0.52**, which improves upon the reported SVRaster (0.61) and is consistent with the relative ranking of methods.
 
 ---
 
 ### Results Summary
 
-- Novel view synthesis quality is on par with original SVRaster.
-- Geometry quality improves significantly, approaching NeuS while remaining more efficient.
-- Random sampling loss yields additional improvements in surface sharpness and noise reduction.
+Our method provides a **balanced set of advantages**:
+
+- **Novel view rendering**: quality on par with original SVRaster.
+- **Geometry fidelity**: significantly improved, approaching NeuS/Neuralangelo.
+- **training, Rendering speed**: training converges in under 10 minutes and inference runs at real-time rasterization rates.
+- **Initialization**: no SfM is required, unlike Gaussian-based methods.
+
+Together, these results show that our approach combines the strengths of rasterization, SDF-based learning, and efficiency, without being dominated by any existing category of methods.
 
 ---
+
+## 4. code & Resources
+
+- Github Repository: [https://github.com/alvin0808/svraster](https://github.com/alvin0808/svraster)

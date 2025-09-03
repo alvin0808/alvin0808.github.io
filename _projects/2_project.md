@@ -4,7 +4,7 @@ title: Espresso Machine Disassembly
 description: Espresso machine disassembly & analysis about pump
 img: assets/img/Espresso_machine.png
 importance: 4
-category: work
+category: fun
 giscus_comments: false
 ---
 
