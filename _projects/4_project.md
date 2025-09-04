@@ -2,16 +2,23 @@
 layout: page
 title: Sparse Voxels Rasterization with SDF-based Learning
 description: SVRaster Geometry Refinement via SDF Learning and NeuS-style Volume Rendering
-img: assets/img/svraster_comparison.png
+img: assets/img/svraster_comparison2.png
 importance: 1
 category: work
 published: true
 related_publications: false
 ---
 
+## Code & Resources
+
+You can run this code in the same way as the original SVRaster.
+To enable the SDF mode, simply add ---seunghun at the end of the train.py command.
+
+- Github Repository: [https://github.com/alvin0808/svraster](https://github.com/alvin0808/svraster)
+
 <div class="row justify-content-center">
   <div class="col-sm mt-3 mt-md-0 text-center">
-    {% include figure.liquid loading="eager" path="/assets/img/svraster_comparison.png" 
+    {% include figure.liquid loading="eager" path="/assets/img/svraster_comparison2.png" 
        title="SVRaster (left) vs. Ours (right)" 
        class="img-fluid rounded z-depth-1" %}
   </div>
@@ -34,8 +41,24 @@ Moreover, our method achieves **training time less than 10 minutes**, does not r
 
 ### Main Contributions
 
+<div class="row justify-content-center">
+  <div class="col-sm mt-3 mt-md-0 text-center">
+    {% include figure.liquid loading="eager" path="/assets/img/motivation_svraster.png" 
+       title="method overview" 
+       class="img-fluid rounded z-depth-1" %}
+  </div>
+</div>
+
 1. **Extension of SVRaster density mode**: Added `density_mode='sdf'` to apply NeuS-style $\alpha$ formulation.
 2. **Voxel refinement improvement**: Introduced SDF value criteria into subdivision and pruning to refine voxels near surfaces and prune irrelevant regions.
+<div class="row justify-content-center">
+  <div class="col-sm mt-3 mt-md-0 text-center">
+    {% include figure.liquid loading="eager" path="/assets/img/method_overview.png" 
+       title="method overview" 
+       class="img-fluid rounded z-depth-1" %}
+  </div>
+</div>
+
 3. **Grid-Voxel mapping tables**:
    - Motivation: In order for **regularization losses (e.g., Eikonal, smoothness)** to propagate **continuously across neighboring voxels**, we discretize the scene into grids and enable **fast neighbor queries**.
    - Implemented structures:
@@ -54,13 +77,6 @@ Moreover, our method achieves **training time less than 10 minutes**, does not r
 
 ---
 
-<div class="row justify-content-center">
-  <div class="col-sm mt-3 mt-md-0 text-center">
-    {% include figure.liquid loading="eager" path="/assets/img/method_overview.png" 
-       title="method overview" 
-       class="img-fluid rounded z-depth-1" %}
-  </div>
-</div>
 ### 2.1 SDF Learning within Sparse Voxels
 
 We extend the SVRaster framework to support Signed Distance Functions (SDFs) as the scene representation.
@@ -230,13 +246,32 @@ _Random sampling inside grid cells reduces noise and improves surface smoothness
 We evaluated Chamfer Distance on the DTU dataset (lower is better).  
 The table below highlights our reproduced result compared to the original SVRaster and other baselines.
 
-| Method                       | DTU (scan 24) Chamfer Distance |
-| ---------------------------- | ------------------------------ |
-| NeuS                         | 1.00                           |
-| 2DGS                         | 0.48                           |
-| 3DGS                         | 2.14                           |
-| SVRaster (original, density) | 0.61                           |
-| **Ours (reproduced)**        | **0.52**                       |
+<table style="border-collapse: collapse; border: 1px solid black;">
+  <tr>
+    <th style="border: 1px solid black; padding: 6px;">Method</th>
+    <th style="border: 1px solid black; padding: 6px;">DTU (scan 24) Chamfer Distance</th>
+  </tr>
+  <tr>
+    <td style="border: 1px solid black; padding: 6px;">NeuS</td>
+    <td style="border: 1px solid black; padding: 6px;">1.00</td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid black; padding: 6px;">2DGS</td>
+    <td style="border: 1px solid black; padding: 6px;">0.48</td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid black; padding: 6px;">3DGS</td>
+    <td style="border: 1px solid black; padding: 6px;">2.14</td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid black; padding: 6px;">SVRaster (original, density)</td>
+    <td style="border: 1px solid black; padding: 6px;">0.61</td>
+  </tr>
+  <tr>
+    <td style="border: 1px solid black; padding: 6px;"><b>Ours (reproduced)</b></td>
+    <td style="border: 1px solid black; padding: 6px;"><b>0.52</b></td>
+  </tr>
+</table>
 
 - Our reimplementation achieves **0.52**, which improves upon the reported SVRaster (0.61) and is consistent with the relative ranking of methods.
 
@@ -254,7 +289,3 @@ Our method provides a **balanced set of advantages**:
 Together, these results show that our approach combines the strengths of rasterization, SDF-based learning, and efficiency, without being dominated by any existing category of methods.
 
 ---
-
-## 4. code & Resources
-
-- Github Repository: [https://github.com/alvin0808/svraster](https://github.com/alvin0808/svraster)
