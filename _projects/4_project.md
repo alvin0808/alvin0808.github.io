@@ -48,9 +48,6 @@ Moreover, our method achieves **training time less than 10 minutes**, does not r
        class="img-fluid rounded z-depth-1" %}
   </div>
 </div>
-
-1. **Extension of SVRaster density mode**: Added `density_mode='sdf'` to apply NeuS-style $\alpha$ formulation.
-2. **Voxel refinement improvement**: Introduced SDF value criteria into subdivision and pruning to refine voxels near surfaces and prune irrelevant regions.
 <div class="row justify-content-center">
   <div class="col-sm mt-3 mt-md-0 text-center">
     {% include figure.liquid loading="eager" path="/assets/img/method_overview.png" 
@@ -58,6 +55,9 @@ Moreover, our method achieves **training time less than 10 minutes**, does not r
        class="img-fluid rounded z-depth-1" %}
   </div>
 </div>
+
+1. **Extension of SVRaster density mode**: Added `density_mode='sdf'` to apply NeuS-style $\alpha$ formulation.
+2. **Voxel refinement improvement**: Introduced SDF value criteria into subdivision and pruning to refine voxels near surfaces and prune irrelevant regions.
 
 3. **Grid-Voxel mapping tables**:
    - Motivation: In order for **regularization losses (e.g., Eikonal, smoothness)** to propagate **continuously across neighboring voxels**, we discretize the scene into grids and enable **fast neighbor queries**.
@@ -101,6 +101,7 @@ Sparse voxels are adaptively subdivided or pruned during training.
 - **Subdivision**: A voxel is split into eight smaller voxels if its SDF values indicate the presence of a surface crossing (i.e., sign changes across corners or small absolute values).
 - **Pruning**: Voxels with all SDF values consistently far from zero are removed to save computation.
 - This ensures that refinement is focused only on surface-relevant regions.
+- In practice, we limit the maximum subdivision depth to 2^9 (=512 grid cells per axis), since higher resolutions bring little benefit for mesh extraction while incurring heavy computational cost.
 
 ---
 
@@ -112,7 +113,7 @@ To enable continuous propagation of regularization losses (e.g., Eikonal, smooth
 
 1. Dense Bitmask (A):
 
-   - A boolean array of size G^3 marking whether each grid coordinate is covered by any voxel.
+   - A boolean array of size G^3 (G=2^n, where n is the maximum subdivision level) marking whether each grid coordinate is covered by any voxel.
    - Acts as a global occupancy mask for the grid, enabling O(1) checks of whether a location is valid.
 
 2. Compact Index Table (B):
@@ -125,6 +126,7 @@ To enable continuous propagation of regularization losses (e.g., Eikonal, smooth
 
    - For each valid grid index in (B), we store the voxel index that owns this grid point.
    - Each grid cell belongs to exactly one voxel, guaranteeing uniqueness and avoiding conflicts.
+   - This property holds because the grid is defined at the finest voxel resolution: larger voxels are subdivided into multiple smallest grid cells, so no grid cell can overlap two different voxels.
    - Retrieval from this mapping is O(1) once the compacted index is known.
 
 #### Neighbor Query
@@ -142,7 +144,7 @@ To enable continuous propagation of regularization losses (e.g., Eikonal, smooth
 
 - Loss Propagation Continuity: Ensures that regularization terms applied at the grid level naturally propagate across voxel boundaries.
 - GPU Efficiency: Combination of dense mask and compacted table balances memory usage (sparse storage) with parallel-friendly random access.
-- Scalability: Grid resolution can be scaled independently of voxel resolution, allowing fine-grained regularization even in sparse voxel settings.
+- Scalability: While voxels are stored adaptively and sparsely, the dense grid is always defined at the finest subdivision level. This independence allows fine-grained regularization to be applied consistently, even in regions represented by large voxels.
 
 ---
 
