@@ -2,14 +2,14 @@
 layout: about
 title: about
 permalink: /
-subtitle: Undergraduate in Mechanical Engineering & Computer Science at SNU
+subtitle: Ph.D. Student in Civil & Environmental Engineering at UCLA
 
 profile:
   align: right
-  image: my_picture.jpg
+  image: seunghun_picture.jpg
   image_circular: false # crops the image to make it circular
-  more_info: <p>Seoul, Republic of Korea</p>
-    <p>alvin0808 at snu.ac.kr</p>
+  more_info: <p>Los Angeles, CA, USA</p>
+    <p>seunghun at g.ucla.edu</p>
 
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
@@ -25,7 +25,8 @@ latest_posts:
   limit: 3 # leave blank to include all the blog d posts
 ---
 
-I am a senior undergraduate at **Seoul National University**, double majoring in Mechanical Engineering and Computer Science.
-where my research has focused on **localization, mapping (SLAM), 3D reconstruction and multi-sensor integration**. Through these projects, I have built a strong foundation in **robot perception**, leveraging LiDAR, cameras, and inertial sensors to model and reconstruct complex environments.
+I am a first-year Ph.D. student in **Civil & Environmental Engineering at UCLA**, advised by [**Prof. Chen Tang**](https://chentangmark.github.io/) in the [**Trustworthy Autonomous Mobility Systems (TAMS) Lab**](https://chentangmark.github.io/lab/).
 
-My long-term vision is to develop **autonomous robotic systems** that perceive, localize, and interact with their surroundings to make decisions and operate reliably in dynamic environments.
+Previously, I studied **Mechanical Engineering and Computer Science at Seoul National University**, where I had the opportunity to work with [**Prof. Ayoung Kim**](https://ayoungk.github.io/) and [**Prof. Jaesik Park**](https://jaesik.info/). My research experience has spanned robot perception, localization and mapping (SLAM), 3D reconstruction, and multi-sensor integration.
+
+My long-term goal is to develop **trustworthy physical AI** that can perceive, reason, and act safely and reliably in complex real-world environments. I am particularly interested in enabling autonomous systems to learn and adapt their behavior while maintaining robustness and safety.

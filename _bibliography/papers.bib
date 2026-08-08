@@ -3,10 +3,21 @@
 
 @string{aps = {American Physical Society,}}
 
+
+@article{Zhu2026SCAPE,
+  title={SCAPE: Scenario-Conditioned Simulation-Augmented Policy Evaluation},
+  author={Zhu*, Dijie and Oh, Seunghun and Huang, Ruopeng and Huang, Zhiyu and Ma, Jiaqi and Tang, Chen},
+  journal={Conference on Robot Learning (CoRL), Under Review},
+  year={2026},
+  preview={scape_main.png},
+  abstract={Reliable performance evaluation is a central bottleneck for deploying robot-learning policies in real-world conditions. Real-world testing produces faithful evaluation but is costly and difficult to scale, whereas simulation-based testing is easy to scale but inevitably biased due to the sim-to-real gap. Neither source alone is sufficient for scalable and reliable policy evaluation. This motivates simulation-augmented policy evaluation, which combines limited real-world rollouts with abundant simulation proxies for sample-efficient performance estimation. Yet, existing methods focus on estimating performance averaged over initial conditions and deployment settings. By construction, such population-level averages collapse scenario-specific variation, providing limited information about when and where a policy can be safely deployed. To address this limitation, we propose SCAPE, a scenario-conditioned simulation-augmented policy evaluation framework that instead predicts scenario-conditioned real-world policy performance from limited paired sim-and-real evaluation samples and large-scale simulation-based testing rollouts. SCAPE corrects the sim-to-real bias in the simulation labels before using them to train the prediction model, and calibrates the prediction uncertainty through conformal prediction. We validate SCAPE on two embodied task domains, autonomous driving and quadruped velocity tracking. In sim-to-sim settings, it reduces the scenario-level performance prediction error by 4.9%/34.7% (driving) and 14.5%/27.7% (quadruped) relative to scene-conditioned neural baselines and aggregate statistical baselines on average. We also validate SCAPE for evaluating a velocity-tracking policy deployed on a physical Unitree Go2. In addition, SCAPE improves testing sample-efficiency, produces narrower calibrated prediction intervals, enhances generalization to out-of-distribution scenarios, and unlocks fine-grained deployment strategies.},
+  selected={true}
+}
+
 @article{Oh2025SVRecon,
   title={SVRecon: Sparse Voxel Rasterization for Surface Reconstruction},
   author={Oh*, Seunghun and Choe, Jaesung and Lee, Dongjae and Lee, Daeun and Jeong, Seunghoon and Wang, Yu-Chiang Frank and Park, Jaesik},
-  journal={IEEE Conference on Computer Vision and Pattern Recognition (CVPR) Under Review},
+  journal={Preprint, arXiv},
   year={2026},
   code={https://github.com/alvin0808/svraster},
   html={https://arxiv.org/abs/2511.17364},
@@ -19,7 +30,7 @@
 @article{Lee2025Articulated_recon,
   title={Articulated Furniture Recovery from Rest-State Multi-View Images},
   author={Lee*, Daeun and Lee, Jaeah and Kim, Woosung and Oh, Seunghun and Park, Jaesik},
-  journal={IEEE Conference on Computer Vision and Pattern Recognition (CVPR) Under Review},
+  journal={Preprint},
   year={2026},
   html={https://drive.google.com/file/d/1Q-gOc8NQX83QpSQ120bIMDPgHiX35Jaa/view},
   preview={articulated_recon_overview.png},
