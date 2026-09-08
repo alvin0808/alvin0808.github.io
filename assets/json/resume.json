@@ -1,16 +1,16 @@
 {
   "basics": {
     "name": "Seunghun Oh",
-    "label": "Senior Student",
+    "label": "First-year PhD Student",
     "image": "",
-    "email": "alvin0808@snu.ac.kr",
-    "phone": "010-4054-0465",
+    "email": "seunghun@ucla.edu",
+    "phone": "(213) 238-8923 / 010-4054-0465",
     "url": "https://alvin0808.github.io",
-    "summary": "I am a senior student in Seoul National University.",
+    "summary": "I am a first-year PhD student in UCLA.",
     "location": {
-      "address": "2712 Broadway St",
-      "postalCode": "CA 94115",
-      "city": "San Francisco",
+      "address": "421 Boelter Hall",
+      "postalCode": "CA 90025",
+      "city": "Los Angeles",
       "countryCode": "US",
       "region": "California"
     },
@@ -117,7 +117,7 @@
       "publisher": "Annalen der Physik",
       "releaseDate": "1905-06-30",
       "url": "https://en.wikisource.org/wiki/Translation:On_the_Electrodynamics_of_Moving_Bodies",
-      "summary": "It concerned an interpretation of the Michelson??“Morley experiment and the properties of light and time. Special relativity incorporates the principle that the speed of light is the same for all inertial observers regardless of the state of motion of the source."
+      "summary": "It concerned an interpretation of the Michelson??ï¿½Morley experiment and the properties of light and time. Special relativity incorporates the principle that the speed of light is the same for all inertial observers regardless of the state of motion of the source."
     },
     {
       "name": "Ãœber einen die Erzeugung und Verwandlung des Lichtes betreffenden heuristischen Gesichtspunkt",
